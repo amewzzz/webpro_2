@@ -1,0 +1,15 @@
+
+ {% extends 'base.html' %}
+ {% block content  %}
+ {% for  b in blogs %}
+ <hr>
+ <a href= "{% url 'view_a_blog' b.id %}"> {{b.title}}  </a><br>
+ {{b.body}}<br>
+ {{b.date_posted}}<br>
+ {{b.author}}<br>
+ {{b.category}}<br>
+ <img src="{{ b.thumbnail.url }}" alt="thumbnail"><br><hr>
+ <a href= "{% url 'view_delete_a_blog' b.id %}"> delete </a>
+
+ {% endfor %}
+ {% endblock content  %}
