@@ -3,13 +3,24 @@
  {% block content  %}
  {% for  b in blogs %}
  <hr>
- <a href= "{% url 'view_a_blog' b.id %}"> {{b.title}}  </a><br>
- {{b.body}}<br>
+ <a href= "{% url 'view_a_blog_byslug' b.slug_title %}"> {{b.title}}  </a><br>
+ {{b.content|safe}}<br>
  {{b.date_posted}}<br>
  {{b.author}}<br>
  {{b.category}}<br>
+ {% if b.thumbnail.url is not null %}
  <img src="{{ b.thumbnail.url }}" alt="thumbnail"><br><hr>
- <a href= "{% url 'view_delete_a_blog' b.id %}"> delete </a>
+ {% endif %}
+ 
+ {% if request.user.is_authenticated %}
+ {% if request.user == b.author %}
+ <a href= "{% url 'view_delete_a_blog' b.id %}"> Delete </a> <br>
+ <a href= "{% url 'view_update_blog' b.id %}"> Update </a>
+ {% endif %}
+ 
+ {% endif %}
+ 
+
 
  {% endfor %}
  {% endblock content  %}

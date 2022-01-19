@@ -2,9 +2,12 @@
 {% block content %}
 <hr>
 {{blog.title}}<br>
-{{blog.body}}<br>
+{{blog.content|safe}}<br>
 {{blog.date_posted}}<br>
 {{blog.author}}<br>
 {{blog.category}}<br>
+{% if blog.thumbnail.url is not null %}
 <img src="{{ blog.thumbnail.url }}" alt="thumbnail"><br><hr>
+{% endif %}
+
 {% endblock content %}

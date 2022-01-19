@@ -17,7 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from blog.views import view_all_blogs, view_a_blog, view_delete_a_blog, view_add_blog, view_add_category
+from accounts.views import view_user_register
+from blog.views import view_a_blog_byslug, view_all_blogs, view_a_blog, view_delete_a_blog, view_add_blog, view_add_category, view_update_blog
+from accounts.views import view_user_register
+from django.contrib.auth import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,8 +28,12 @@ urlpatterns = [
     path('blogs/add/', view_add_blog, name= 'view_add_blog' ),
     path('blogs/category/add', view_add_category, name= 'view_add_category' ),
     path('blogs/<int:blog_id>', view_a_blog, name= 'view_a_blog'),
+    path('blogs/<slug:slug_title>', view_a_blog_byslug, name= 'view_a_blog_byslug'),
     path('blogs/delete/<int:blog_id>', view_delete_a_blog, name= 'view_delete_a_blog'),
-    
+    path('blogs/update/<int:blog_id>', view_update_blog, name='view_update_blog'),
+    path('register',view_user_register, name='view_user_register'),
+    path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('login/', views.LoginView.as_view(template_name='login.html', redirect_authenticated_user=True), name='login'),
 ]
 
 if settings.DEBUG:
