@@ -11,6 +11,7 @@ def view_all_blogs(request):
     context= { 'blogs' :blogs}
     return render(request, 'blogs.html', context)
 
+
 def view_a_blog(request, blog_id):
     blog= Blog.objects.get(id=blog_id)
     context = { 'blog' : blog}
